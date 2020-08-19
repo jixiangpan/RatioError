@@ -325,12 +325,12 @@ void TAnalysis::Get_ratio_lower_upper()
 
   line = 0;
   val_typeA = ratio_range_low;
-  val_typeB = central_ratio;
+  val_typeB = ratio_range_hgh;
   while( fabs(val_typeA-val_typeB)>1e-4 ) {
     line++;
     double val_mid = (val_typeA+val_typeB)/2;
-    double y_mid = func_ratio_meas2pred->Integral(val_mid, central_ratio);
-    if( y_mid > value_1sigma/2 ) {
+    double y_mid = func_ratio_meas2pred->Integral(val_mid, ratio_range_hgh);
+    if( y_mid > (1-value_1sigma)/2 ) {
       val_typeA = val_mid;
     }
     else {
@@ -343,18 +343,18 @@ void TAnalysis::Get_ratio_lower_upper()
     }
   }
   
-  ratio_1sigma_low = (val_typeA+val_typeB)/2;
+  ratio_1sigma_hgh = (val_typeA+val_typeB)/2;
      
   ////////////////////////
   
   line = 0;
-  val_typeA = central_ratio;
+  val_typeA = ratio_range_low;
   val_typeB = ratio_range_hgh;
   while( fabs(val_typeA-val_typeB)>1e-4 ) {
     line++;
     double val_mid = (val_typeA+val_typeB)/2;
-    double y_mid = func_ratio_meas2pred->Integral(central_ratio, val_mid);
-    if( y_mid > value_1sigma/2 ) {
+    double y_mid = func_ratio_meas2pred->Integral(ratio_range_low, val_mid);
+    if( y_mid > (1-value_1sigma)/2 ) {
       val_typeB = val_mid;
     }
     else {
@@ -367,7 +367,7 @@ void TAnalysis::Get_ratio_lower_upper()
     }
   }
   
-  ratio_1sigma_hgh = (val_typeA+val_typeB)/2;
+  ratio_1sigma_low = (val_typeA+val_typeB)/2;
      
   ////////////////////////  
   
