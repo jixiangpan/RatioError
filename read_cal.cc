@@ -45,6 +45,12 @@ void func_canv_margin(TCanvas *canv, double left, double right, double top, doub
 
 /////////////////////////////////////////////////////////////////////////////////// class
 
+/*
+  Case not available:
+  (1) measuremnt = 0
+  (2) prediction = 0
+*/
+
 class TAnalysis
 {
  public:
