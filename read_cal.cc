@@ -381,6 +381,8 @@ void read_cal()
   cout<<endl<<" Hello World"<<endl<<endl;
 
   TAnalysis *exampleA = new TAnalysis();
+  
+  
   exampleA->data_range_low  = 0;
   exampleA->data_range_hgh  = 600;
   exampleA->ratio_range_low = 0;
@@ -420,7 +422,7 @@ void read_cal()
   
   exampleA->Get_ratio_lower_upper();
 
-  cout<<endl<<TString::Format(" Ratio: %5.3f, (%5.3f, %5.3f)",
+  cout<<endl<<TString::Format(" Ratio: %5.3f, 1sigma CI (%5.3f, %5.3f)",
 			      exampleA->val_meas/exampleA->val_pred,
 			      exampleA->ratio_1sigma_low,
 			      exampleA->ratio_1sigma_hgh
@@ -430,33 +432,54 @@ void read_cal()
   TCanvas *canv_testB = new TCanvas(roostr, roostr, 900, 650);
   func_canv_margin(canv_testB, 0.15, 0.2,0.1,0.15);  
   (exampleA->Get_Func_ratio_meas2pred())->Draw();
-  cout<<endl<<" Integral "<<(exampleA->Get_Func_ratio_meas2pred())->Integral(0,2)<<endl<<endl;
-  
+  cout<<endl<<" Integral "<<(exampleA->Get_Func_ratio_meas2pred())->Integral(exampleA->ratio_range_low, exampleA->ratio_range_hgh)<<endl<<endl;
+ 
   /////////
-/*  
+  /*
   exampleA->Clear();
   
   exampleA->data_range_low  = 0;
-  exampleA->data_range_hgh  = 600;
+  exampleA->data_range_hgh  = 60;
   exampleA->ratio_range_low = 0;
-  exampleA->ratio_range_hgh = 2;
+  exampleA->ratio_range_hgh = 10;
   
-  exampleA->Add_component(400, 1);// the first is for measurment
-  exampleA->Add_component(200, 1);// the following is for prediciton component
-  exampleA->Add_component(100, 2);
+  exampleA->Add_component(10, 1);// the first is for measurment:       value and weight
+  exampleA->Add_component(8, 1);// the following is for prediciton     component: value and weight
+  exampleA->Add_component(2, 1);// the following is for prediciton     component: value and weight
 
   exampleA->Summation_total_func();
   
   exampleA->Func_ratio_meas2pred();
   
   exampleA->Get_ratio_lower_upper();
-
-  cout<<endl<<TString::Format(" Ratio: %5.3f, (%5.3f, %5.3f)",
+    
+  cout<<endl<<TString::Format(" Ratio: %5.3f, 1sigma CI (%5.3f, %5.3f)",
 			      exampleA->val_meas/exampleA->val_pred,
 			      exampleA->ratio_1sigma_low,
 			      exampleA->ratio_1sigma_hgh
 			      )<<endl<<endl;
   
-  cout<<endl<<" Integral "<<(exampleA->Get_Func_ratio_meas2pred())->Integral(0,2)<<endl<<endl;
-*/
+  cout<<endl<<" Integral "<<(exampleA->Get_Func_ratio_meas2pred())->Integral(exampleA->ratio_range_low, exampleA->ratio_range_hgh)<<endl<<endl;
+
+  roostr = "canv_testDA";
+  TCanvas *canv_testDA = new TCanvas(roostr, roostr, 900, 650);
+  func_canv_margin(canv_testDA, 0.15, 0.2,0.1,0.15);
+
+  (exampleA->Get_component(3))->Draw();
+  (exampleA->Get_component(3))->SetLineColor(kBlue);
+  
+  (exampleA->Get_component(2))->Draw("same");
+  (exampleA->Get_component(2))->SetLineColor(kGreen+1);
+   
+  (exampleA->Get_component(1))->Draw("same");
+  (exampleA->Get_component(1))->SetLineColor(kRed);
+   
+  (exampleA->Get_func_summation_pred())->Draw("same");
+  (exampleA->Get_func_summation_pred())->SetLineColor(kBlack);
+  
+  roostr = "canv_testDB";
+  TCanvas *canv_testDB = new TCanvas(roostr, roostr, 900, 650);
+  func_canv_margin(canv_testDB, 0.15, 0.2,0.1,0.15);
+  (exampleA->Get_Func_ratio_meas2pred())->Draw();
+  */
 }
