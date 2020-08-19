@@ -401,6 +401,10 @@ void read_cal()
 
   exampleA->Summation_total_func();
   
+  exampleA->Func_ratio_meas2pred();
+  
+  exampleA->Get_ratio_lower_upper();
+
   /////////////////////////////////
   
   roostr = "canv_testA";
@@ -424,10 +428,6 @@ void read_cal()
   
   ///////////////////////////////////
   
-  exampleA->Func_ratio_meas2pred();
-  
-  exampleA->Get_ratio_lower_upper();
-
   cout<<endl<<TString::Format(" Ratio: %5.3f, 1sigma CI (%5.3f, %5.3f)",
 			      exampleA->val_meas/exampleA->val_pred,
 			      exampleA->ratio_1sigma_low,
