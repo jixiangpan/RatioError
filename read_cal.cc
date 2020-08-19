@@ -304,6 +304,8 @@ void TAnalysis::Func_ratio_meas2pred()
 
 void TAnalysis::Get_ratio_lower_upper()
 {
+  gErrorIgnoreLevel = 6001;
+  
   double val_ratio = val_meas/val_pred;
   double value_1sigma = 1-TMath::Prob(1, 1);
 
@@ -372,7 +374,7 @@ void TAnalysis::Get_ratio_lower_upper()
 void read_cal()
 {
   //ROOT::Math::IntegratorOneDimOptions::SetDefaultRelTolerance(1.E-5); 
-  gErrorIgnoreLevel = 6001;
+  //gErrorIgnoreLevel = 6001;
   
   TString roostr = "";
 
